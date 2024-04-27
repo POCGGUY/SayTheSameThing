@@ -120,7 +120,7 @@ namespace Server
             public bool isInvited = false;
             public bool wordEntered;
             public bool disconnected = false;
-            ClientObject inviter;
+            public ClientObject inviter;
             public string word;
 
             public ClientObject(TcpClient tcpClient, ServerObject serverObject)
@@ -149,7 +149,9 @@ namespace Server
                         }
 
                     }
-                    string message = $"{userName} подключился к серверу";
+                    string message = "Добро пожаловать! Чтобы узнать какие игроки есть на сервере напишите : \"!Получить список игроков\", чтобы пригласить игрока напишите в сообщении его имя";
+                    await server.BroadcastPrivateMessageAsync(message, Id);
+                    message = $"{userName} подключился к серверу";
                     await server.BroadcastPublicMessageAsync(message);
                     Console.WriteLine(message);
                     while (true)
@@ -216,6 +218,18 @@ namespace Server
                                     string broadcast = "Нельзя пригласить самого себя";
                                     await server.BroadcastPrivateMessageAsync(broadcast, Id);
                                     Console.WriteLine(broadcast);
+                                    skip = true;
+                                    break;
+                                }
+                                else if (message == "!Получить список игроков")
+                                {
+                                    int count = 1;
+                                    foreach (var client in server.clients)
+                                    {
+                                        string broadcast = count + ". " + client.userName;
+                                        await server.BroadcastPrivateMessageAsync(broadcast, Id);
+                                        ++count;
+                                    }
                                     skip = true;
                                     break;
                                 }
@@ -296,6 +310,7 @@ namespace Server
                             secondClient.word = null;
                             firstClient.wordEntered = false;
                             secondClient.wordEntered = false;
+                            firstClient.inviter = null;
                             break;
 
                         }
@@ -328,6 +343,7 @@ namespace Server
                                 secondClient.word = null;
                                 firstClient.wordEntered = false;
                                 secondClient.wordEntered = false;
+                                firstClient.inviter = null;
                                 break;
                             }
                             firstClient.word = null;

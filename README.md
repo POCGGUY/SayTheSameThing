@@ -3,7 +3,7 @@ This is a simple online game on C# which implements game called "Say The Same Th
 Right now game supports only Russian language in UI
 
 # Features:
-Simple chat while not in game
-The invitation System
-Multiple Lobbies working asynchronally
+Simple chat while not in game  
+The invitation System  
+Multiple Lobbies working asynchronally  
 
