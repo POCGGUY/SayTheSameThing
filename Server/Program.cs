@@ -120,7 +120,7 @@ namespace Server
             public bool isInvited = false;
             public bool wordEntered;
             public bool disconnected = false;
-            ClientObject inviter;
+            public ClientObject inviter;
             public string word;
 
             public ClientObject(TcpClient tcpClient, ServerObject serverObject)
@@ -296,6 +296,7 @@ namespace Server
                             secondClient.word = null;
                             firstClient.wordEntered = false;
                             secondClient.wordEntered = false;
+                            firstClient.inviter = null;
                             break;
 
                         }
@@ -328,6 +329,7 @@ namespace Server
                                 secondClient.word = null;
                                 firstClient.wordEntered = false;
                                 secondClient.wordEntered = false;
+                                firstClient.inviter = null;
                                 break;
                             }
                             firstClient.word = null;
