@@ -193,6 +193,18 @@ namespace Server
                                 inviter = null;
                                 skip = true;
                             }
+                            else if (message == "!Получить список игроков")
+                                {
+                                    int count = 1;
+                                    foreach (var client in server.clients)
+                                    {
+                                        string broadcast = count + ". " + client.userName;
+                                        await server.BroadcastPrivateMessageAsync(broadcast, Id);
+                                        ++count;
+                                    }
+                                    skip = true;
+                                    break;
+                                }
                             foreach (var clientCompare in server.clients)
                             {
                                 if (message == clientCompare.userName && !clientCompare.isInvited && message != userName) // Пригласить пользователя если он не в игре и если его не пригласили ранее
@@ -218,18 +230,6 @@ namespace Server
                                     string broadcast = "Нельзя пригласить самого себя";
                                     await server.BroadcastPrivateMessageAsync(broadcast, Id);
                                     Console.WriteLine(broadcast);
-                                    skip = true;
-                                    break;
-                                }
-                                else if (message == "!Получить список игроков")
-                                {
-                                    int count = 1;
-                                    foreach (var client in server.clients)
-                                    {
-                                        string broadcast = count + ". " + client.userName;
-                                        await server.BroadcastPrivateMessageAsync(broadcast, Id);
-                                        ++count;
-                                    }
                                     skip = true;
                                     break;
                                 }
