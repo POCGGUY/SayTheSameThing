@@ -203,7 +203,6 @@ namespace Server
                                         ++count;
                                     }
                                     skip = true;
-                                    break;
                                 }
                             foreach (var clientCompare in server.clients)
                             {
